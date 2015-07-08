@@ -4,7 +4,7 @@
 
 Program was written in and intented for use with python 2.7. The latest version is v1.1 and was last updated on 8 July 2015.
 
-This program is used to listen to or capture network traffic. 
+This program is used to listen to or capture network traffic. This program is intended for personal use, or use on your own network and devices. Please refer to all state, federal, and national laws before conducting any network pen-testing.
 
 With this program it is possible to capture network traffic on Wi-Fi, or cabled networks. You must have a network interface that is capable of going into monitor mode (aka permisquous mode). 
 
