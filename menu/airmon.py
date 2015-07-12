@@ -24,9 +24,9 @@ def run():
     if_check = subprocess.check_output(
             'ifconfig -s | awk -v col=1 \'{print $col}\'',
             shell=True).splitlines()[1:]
-    if 'mon' in if_check:
+    if 'mon' in ('\n'.join(if_check)):
         raw_input('You already have a interface in monitor mode.\n' \
-                   'Press [ENTER] to return to the main menu...\n')
+                   'Press [ENTER] to continue...\n')
         return
     # This section prompts the user for the interface they'd like to use
     while True:

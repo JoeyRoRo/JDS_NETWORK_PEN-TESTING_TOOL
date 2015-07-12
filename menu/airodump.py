@@ -23,7 +23,7 @@ def run():
     wait_timer('Gathering interface info...')
     if not 'mon' in if_check:
         # imports the airmon options
-        import airmon.py
+        import airmon
         # runs the airmon options to put a interface in monitor mode
         airmon.run()
     answers = ['', '', '', 'Off']
