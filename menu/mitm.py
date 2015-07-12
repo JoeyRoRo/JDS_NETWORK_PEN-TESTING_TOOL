@@ -27,20 +27,20 @@ need = ['Would you like to...\n' \
         'Gateway IP address:\n',
         'Where would you like to save your data:\n']
 answers = ['', '', '', '', '', '']
-# This section clears any network settings that were used before
-if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
 
 # Main definition
 def run():
     global answers
     wait_timer('Preparing interface settings...')
-
+    # This section clears any network settings that were used before
+    if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
     for x in [i for i in if_check if i.startswith('mon')]:
         subprocess.call('sudo airmon-ng stop %s' % x, shell=True)
     for x in [i for i in if_check if i.startswith('wl')]:
         subprocess.call('sudo macchanger -p %s' % x, shell=True)
     subprocess.call('clear', shell=True)
-
+    # This section clears any network settings that were used before
+    if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
     # This section prompts the user for the needed information
     i = 0
     while i < len(need):
