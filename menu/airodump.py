@@ -16,27 +16,39 @@ otype = 'Routine'
 options1 = ['Set channel to capture on: ', 'Set AP to capture on: ', 'Set locate to save to: ', 'Set GPS save options: ']
 options2 = ['What channel would you like to capture on: ', 'What AP would you like to capture on: ', 'Where would you like to save your capture to: ', 'GPS...\n1.) on \n2.) off']
 answers = ['', '', '', 'Off']
+if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
 
 def run():
     global answers
     wait_timer('Gathering interface info...')
-    if_check = subprocess.check_output('sudo ifconfig -s', shell=True)
     if not 'mon' in if_check:
-        import opt1     #imports the airmon options
-        opt1.run()      #runs the airmon options to put a interface in monitor mode
+        # imports the airmon options
+        import airmon.py
+        # runs the airmon options to put a interface in monitor mode
+        airmon.run()
     answers = ['', '', '', 'Off']
     subprocess.call('clear')
     while True:
         print("GPS is set to: "+answers[3]+"\n")
-        if not answers[0] == "": print("Set to capture on channel "+answers[0]+"\n")
-        if not answers[1] == "": print("Set to capture on AP "+answers[1]+"\n")
-        if not answers[2] == "": print("Set to save capture to "+answers[2]+"\n")
-        capture_menu = raw_input('Would you like to... \n 1.) '+options1[0]+'\n 2.) '+options1[1]+'\n 3.) '+options1[2]+'\n 4.) '+options1[3]+'\n 5.) Run Airodump \n 6.) Clear settings \n 7.) Back \n')
+        if not answers[0] == "": 
+            print("Set to capture on channel "+answers[0]+"\n")
+        if not answers[1] == "": 
+            print("Set to capture on AP "+answers[1]+"\n")
+        if not answers[2] == "":
+            print("Set to save capture to "+answers[2]+"\n")
+        capture_menu = raw_input('Would you like to...\n' \
+                                    '1.) '+options1[0]+'\n' \
+                                    '2.) '+options1[1]+'\n' \
+                                    '3.) '+options1[2]+'\n' \
+                                    '4.) '+options1[3]+'\n' \
+                                    '5.) Run Airodump\n' \
+                                    '6.) Clear settings\n' \
+                                    '7.) Back \n')
         if (capture_menu.isdigit()) and (0 < (int(capture_menu)) < 8):
             if 0 < (int(capture_menu)) < 5:
                 next(capture_menu)
             if int(capture_menu) == 5:
-                thread.start_new_thread( airodump_thread, ("Airodump thread", ) )
+                thread.start_new_thread(airodump_thread, ("Airodump thread",))
                 raw_input("Airodump starting...\n")
                 break
             if int(capture_menu) == 6:
@@ -47,7 +59,7 @@ def run():
         subprocess.call('clear')
 
 def aircheck_thread(thread_name):
-    subprocess.check_output('xterm -e sudo airodump-ng mon0', shell=True)
+    subprocess.check_output('xterm -e airodump-ng mon0', shell=True)
 
 def next(i):
     if int(i) == 1:
@@ -76,20 +88,26 @@ def validate(ans, i):
     if int(i) == 0:
         if 0 < int(ans) < 13: answers[0] = ans; return True
     if int(i) == 1:
-        if re.match("([a-fA-F0-9]{2}[:|\-]?){6}", ans): answers[1] = ans; return True
+        if re.match("([a-fA-F0-9]{2}[:|\-]?){6}", ans): 
+            answers[1] = ans; return True
     if int(i) == 2:
         if not ans.endswith("\/"):
             ans = ans+"/"
         if os.path.isdir(ans):
-            write_name = raw_input("What would you like to call your output file?\n")
-            ans = ans+write_name; answers[2] = ans
+            write_name = raw_input("What would you like to call your output " \
+                    "file?: ")
+            ans = ans+write_name
+            answers[2] = ans
             return True
     if int(i) == 3:
-        if re.match("1",ans):
-            answers[3] = "On"; return True
-        if re.match("2", ans):
-            answers[3] = "Off"; return True
-        subprocess.call('clear'); print("Not a valid option.\n")
+        if ans == "1":
+            answers[3] = "On"
+            return True
+        if ans == "2":
+            answers[3] = "Off"
+            return True
+        subprocess.call('clear')
+        print("Not a valid option.\n")
     return False
 
 def airodump_thread(thread_name):
@@ -100,7 +118,9 @@ def airodump_thread(thread_name):
     if answers[3] == 'On': answers[3] = ' --gpsd '
     if answers[3] == 'Off': answers[3] = ''
     print(thread_name+" running. Press enter to return to the main menu.\n")
-    subprocess.call("xterm -e sudo airodump-ng%s%s%s%s mon0" % (answers[0], answers[1], answers[2], answers[3]), shell=True)
+    subprocess.call("xterm -e airodump-ng%s%s%s%s mon0" % \
+            (answers[0], answers[1], answers[2], answers[3]), 
+            shell=True)
 
 def wait_timer(on_what):
     sys.stdout.write(on_what)
