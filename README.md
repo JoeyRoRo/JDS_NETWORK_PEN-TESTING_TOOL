@@ -1,10 +1,80 @@
-##################################
-## JDS NETWORK PEN-TESTING TOOL ##
-##################################
+##########################
+## JDS PEN-TESTING TOOL ##
+##########################
 
-Program was written in and intented for use with python 2.7. The latest version is v1.1 and was last updated on 8 July 2015.
+Program was written in and intented for use with python 2.7. The latest version is v1.1 and was last updated on 12 July 2015.
 
-This program is used to listen to or capture network traffic. This program is intended for personal use, or use on your own network and devices. Please refer to all state, federal, and national laws before conducting any network pen-testing.
+Below is a descripton of the each part of the program...
+--------------------------------------------------------
+1.) Crack password hashes
+
+	a.) Create a rainbow table
+	This section of the program will help a user create a rainbow table. The user is prompted for all the needed information and then the program uses the 'rtgen' program to make the rainbow table.
+
+	b.) Sort a rainbow table
+	This part of the program will sort a rainbow table. The user is promted for what rainbow table to sort and then uses 'rtsort' to sort the table.
+
+	c.) Crack hash using an existing rainbow table
+	This section of the program will use a rainbow table to crack a password hash.
+	The program prompts the user for either a single hash or mutliple hashes, and
+	then prompts the user for the hash(s) to crack. The program uses the 'rcrack'
+	program to crack the hashes.
+--------------------------------------------------------
+2.) Start sniffing network
+This section of the program will put a network device into monitor mode, and
+collect network traffic.  The user provides parameters for collecting traffic,
+and then the program runs the airodump-ng program.
+--------------------------------------------------------
+3.) Prepare to monitor network
+This section of the program will set your network adaptor into monitor
+mode. 
+--------------------------------------------------------
+4.) Crack Wi-Fi Passwords
+
+	a.) Crack WPS
+	This section of the program uses the kali tool 'Bully'. Bully is a tool to
+	crack wireless router passwords through a WPS attack. Please refer to the Bully
+	manual for more info on the Bully tool.
+	
+	b.) Crack WPA/WPA2 (w/dictionary)
+	This part of the program will help crack WPA encrypted Wi-Fi network
+	passwords. In this section the user is prompted for their .cap file where they
+	have captured some of the Wi-Fi packtes. Then they are prompted for their
+	dictionary file. Then the program uses the aircrack-ng command to attempt to
+	crack the password for the network.
+	
+	c.) Salt a dictionary file with a WPA/WPA2 SSID
+	This section of the program will help create a new dictionary file out of an
+	already existing dictionary file. The new dictionary file will be salted with a
+	user directed SSID. This is done in order to speed of the cracking of WPA
+	encrypted Wi-Fi network passwords.
+	
+	d.) Crack WPA/WPA2 (w/salted dictionary)
+	This section of the program helps crack WPA encrpyted Wi-Fi network passwords
+	with the use of a salted dictionary file. The user is prompted for a .cap file
+	with the WPA handshake in it, then is prompted for the salted dictionary file.
+	The program uses cowpatty in order to run the salted dictionary file agains the
+	WPA handshake.
+
+	e.) Crack WEP
+	This section of the program will help crack WEP encrypted Wi-Fi network
+	passwords. In this section the user is prompted for their .cap file where they
+	have captured some of the Wi-Fi packtes. Then the program uses the aircrack-ng
+	command to attempt to crack the password for the network.
+--------------------------------------------------------
+5.) Reset interfaces to default
+This section of the program will clear any network adapters settings. It
+will bring any adapter out of monitor mode, and reset the MAC addresses that
+were changed back to factory settings. 
+--------------------------------------------------------
+6.) Conduct Man-in-the-Middle attack
+This section of the program conducts a mitm attack by arp spoofing. The
+program prompts the user for the target device(s), interface to use, how to
+mask the MAC, IP of the target and the gateway, and where you would like to
+save the output.
+--------------------------------------------------------
+
+This program is intended for personal use, or use on your own network and devices. Please refer to all state, federal, and national laws before conducting any network pen-testing.
 
 With this program it is possible to capture network traffic on Wi-Fi, or cabled networks. You must have a network interface that is capable of going into monitor mode (aka permisquous mode). 
 
