@@ -19,7 +19,7 @@ answers = ['', '', '', 'Off']
 if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
 
 def run():
-    global answers
+    global answers; answers = []
     wait_timer('Gathering interface info...')
     if not 'mon' in if_check:
         # imports the airmon options

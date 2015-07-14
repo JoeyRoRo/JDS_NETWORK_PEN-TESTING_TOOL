@@ -16,7 +16,7 @@ answers = []
 
 # Main definition
 def run():
-    global answers
+    global answers; answers = []
     subprocess.call('clear', shell=True)
     wait_timer('Gathering interface info...')
     # This section checks if there is a network device is already in monitor

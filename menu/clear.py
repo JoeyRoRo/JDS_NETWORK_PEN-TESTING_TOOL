@@ -21,7 +21,7 @@ def run():
                          .splitlines()[1:]
     for x in [i for i in if_check if i.startswith('mon')]:
         subprocess.call('sudo airmon-ng stop %s' % x, shell=True)
-    # Not all distros start wlan interfaces with wlan + number
+# Not all distros start wlan interfaces with wlan + number
     for x in [i for i in if_check if i.startswith('wl')]:
         subprocess.call('sudo macchanger -p %s' % x, shell=True)
     raw_input('Finished clearing settings to default.\n' \

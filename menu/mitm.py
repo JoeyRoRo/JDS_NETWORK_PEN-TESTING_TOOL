@@ -30,7 +30,7 @@ answers = ['', '', '', '', '', '']
 
 # Main definition
 def run():
-    global answers
+    global answers; answers = []
     wait_timer('Preparing interface settings...')
     # This section clears any network settings that were used before
     if_check = subprocess.check_output('ifconfig -s', shell=True).splitlines()[1:]
