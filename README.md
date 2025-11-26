@@ -2,7 +2,7 @@
 ## JDS PEN-TESTING TOOL ##
 ##########################
 
-Program was written in and intented for use with python 2.7. The latest version is v1.1 and was last updated on 12 July 2015.
+Program was written in and intented for use with python 2.7. The latest version is v1.3 and was last updated on 12 July 2015.
 
 Below is a descripton of the each part of the program...
 --------------------------------------------------------
